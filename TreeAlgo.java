@@ -10,16 +10,31 @@ public class TreeAlgo {
 	public static void main(String[] args) {
 		BinaryTree root= new BinaryTree();
 		root=populateBinaryTree();
-	 	System.out.println("inorder");
-		inorderReversal(root);
-		 System.out.println();
+		System.out.println("inorder");
+		
+		/*System.out.println();
 		System.out.println("preorder");
 		preorderReversal(root);
 		System.out.println(); 
 		System.out.println("postorder");
-		postorderReversal(root); 
+		postorderReversal(root);*/
 		
+		insertInBinaryTree(8,root);
+		inorderReversal(root);
+				
 		System.out.println("MAX_VALUE- "+FindMax(root));
+		System.out.println(findElementInTree(root,8)+"= 8 status in the tree");
+		
+	}
+
+	private static void insertInBinaryTree(int i, BinaryTree root) {
+
+		BinaryTree tempRoot= new BinaryTree();
+		tempRoot.setData(i);
+		if(root.getLeft()==null){
+			root.setLeft(tempRoot);
+		}else
+		insertInBinaryTree(i,root.getLeft());
 		
 	}
 
@@ -60,8 +75,6 @@ public class TreeAlgo {
 			System.out.print(root.getData()+",");
 			inorderReversal(root.getRight());			
 		}
-		
-		
 	}
 
 	private static void preorderReversal(BinaryTree root) {
@@ -78,32 +91,34 @@ public class TreeAlgo {
 			postorderReversal(root.getRight());
 			System.out.print(root.getData()+",");
 		}
-		
 	}
-	
 	public static int FindMax(BinaryTree root){
-		
 		int root_val,left,right,max=INT_MIN;
 		if(root!=null){
-			
 			root_val=root.getData();
 			max=root_val;
 			right=FindMax(root.getRight());
 			left=FindMax(root.getLeft());
 			root_val=left>right?left:right;
-			System.out.println(left+"compare"+right);
 			max=root_val>max?root_val:max;
-			System.out.println(max+"compare"+root_val);
 		}
-		
 		return max;
-		
-		
-		
 	}
-
-
-
-
-
+	public static boolean findElementInTree(BinaryTree root, int data){
+		if(root!= null){
+		if(root.getData()==data){
+			return true;
+		}
+		else{
+			boolean el=findElementInTree(root.getLeft(),data);
+			if(el==true){
+				return true;
+			}
+			el=findElementInTree(root.getRight(),data);
+			if(el==true)
+				return true;
+		}
+		}
+		return false;
+	}
 }
