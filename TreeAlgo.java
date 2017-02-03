@@ -2,22 +2,24 @@ package TREE;
 
 public class TreeAlgo {
 
+	private static final int INT_MIN = -1;
+
 	/**
 	 * @param args
 	 */
 	public static void main(String[] args) {
 		BinaryTree root= new BinaryTree();
-		BinaryTree root1= new BinaryTree();
-		BinaryTree root2= new BinaryTree();
 		root=populateBinaryTree();
-		System.out.println("inorder");
+	 	System.out.println("inorder");
 		inorderReversal(root);
-		System.out.println();
+		 System.out.println();
 		System.out.println("preorder");
 		preorderReversal(root);
 		System.out.println(); 
 		System.out.println("postorder");
-		postorderReversal(root);
+		postorderReversal(root); 
+		
+		System.out.println("MAX_VALUE- "+FindMax(root));
 		
 	}
 
@@ -76,6 +78,27 @@ public class TreeAlgo {
 			postorderReversal(root.getRight());
 			System.out.print(root.getData()+",");
 		}
+		
+	}
+	
+	public static int FindMax(BinaryTree root){
+		
+		int root_val,left,right,max=INT_MIN;
+		if(root!=null){
+			
+			root_val=root.getData();
+			max=root_val;
+			right=FindMax(root.getRight());
+			left=FindMax(root.getLeft());
+			root_val=left>right?left:right;
+			System.out.println(left+"compare"+right);
+			max=root_val>max?root_val:max;
+			System.out.println(max+"compare"+root_val);
+		}
+		
+		return max;
+		
+		
 		
 	}
 
